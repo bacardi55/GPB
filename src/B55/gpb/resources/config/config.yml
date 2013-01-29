@@ -1,0 +1,7 @@
+githubPhpBoard:
+    title: Github PHP dashBoard
+    subtitle: Create a home for all your github project
+    users:
+        - bacardi55:
+            - b-55-log
+            - dotfiles

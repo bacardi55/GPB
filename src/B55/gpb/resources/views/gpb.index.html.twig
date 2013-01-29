@@ -1,0 +1,12 @@
+{% extends 'gpb.layout.html.twig' %}
+{% set active = 'homepage' %}
+
+{% block content %}
+    <h1>{{ title|trans }}</h1>
+    {% if subtitle %}
+        <h2>{{ subtitle }}</h2>
+    {% endif %}
+
+    <div class="row">
+    </div>
+{% endblock %}
