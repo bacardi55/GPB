@@ -2,11 +2,20 @@
 {% set active = 'homepage' %}
 
 {% block content %}
-    <h1>{{ title|trans }}</h1>
-    {% if subtitle %}
-        <h2>{{ subtitle }}</h2>
+    <h1>{{ dashboard.title|e }}</h1>
+    {% if dashboard.subtitle %}
+        <h2>{{ dashboard.subtitle|e }}</h2>
     {% endif %}
 
     <div class="row">
+        {% for user in dashboard.users %}
+            {% for repo in user.repos %}
+                <div class=span6>
+                    <h3>{{ repo.title|e }}</h3>
+                    <p> {{ repo.description|raw }} </p>
+                    <p> Last updated: {{ repo.lastUpdate }}</p>
+                </div>
+            {% endfor %}
+        {% endfor %}
     </div>
 {% endblock %}

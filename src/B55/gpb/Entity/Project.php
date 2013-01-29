@@ -5,7 +5,7 @@ class Project
 {
     protected $title;
     protected $description;
-    protected $last_update;
+    protected $lastUpdate;
     protected $url;
 
     public function __construct($github_repo) {
@@ -13,10 +13,26 @@ class Project
         $this->url = $github_repo['homepage'] ?
             $github_repo['homepage'] : $github_repo['html_url'] ;
         $this->description = $github_repo['description'];
-        $this->last_update = $github_repo['updated_at'];
+        $this->lastUpdate = $github_repo['updated_at'];
+    }
+
+    public function getTitle() {
+        return $this->title;
+    }
+
+    public function getUrl() {
+        return $this->url;
+    }
+
+    public function getDescription() {
+        return $this->description;
+    }
+
+    public function getLastUpdate() {
+        return $this->lastUpdate;
     }
 
     public function __toString() {
-        return "repo: " . $this->title . ', last updated: ' . $this->last_update;
+        return "repo: " . $this->title . ', last updated: ' . $this->lastUpdate;
     }
 }

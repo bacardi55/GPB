@@ -27,6 +27,10 @@ class User
         return $project;
     }
 
+    public function getRepos() {
+        return $this->repos;
+    }
+
     public function __toString() {
         return 'user: ' . $this->name . ', ' . $this->nbRepos . ' repos';
     }

@@ -3,5 +3,6 @@ githubPhpBoard:
     subtitle: Create a home for all your github project
     users:
         - bacardi55:
+            - i55WebManager
             - b-55-log
             - dotfiles

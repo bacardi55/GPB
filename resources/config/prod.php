@@ -31,4 +31,3 @@ $app['assetic.output.path_to_js']       = 'js/scripts.js';
 $app['assetic.filter.yui_compressor.path'] = '/usr/share/yui-compressor/yui-compressor.jar';
 
 $app['gpb.config'] = __DIR__ . '/../../src/B55/gpb/resources/config/config.yml';
-$app['gpb.githubApi'] = 'Github\Client';
