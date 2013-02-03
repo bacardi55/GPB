@@ -1,8 +1,12 @@
 githubPhpBoard:
-    title: Github PHP dashBoard
-    subtitle: Create a home for all your github project
+    title: Bacardi55 project page
+    subtitle:
     users:
         - bacardi55:
-            - i55WebManager
             - b-55-log
+            - i55WebManager
+            - jobEscaper55
             - dotfiles
+            - gpb
+        - lyrixx:
+            - Silex-Kitchen-Edition

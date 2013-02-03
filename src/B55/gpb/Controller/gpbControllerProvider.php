@@ -5,6 +5,7 @@ use Silex\Application;
 use Silex\ControllerProviderInterface;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Yaml\Yaml;
 
 use Github\Client as GithubClient;
@@ -24,18 +25,20 @@ class gpbControllerProvider implements ControllerProviderInterface {
             }
             $config = Yaml::parse($app['gpb.config']);
             $config = $config['githubPhpBoard'];
-            //echo '<pre>';print_r($config);die;
 
             $github_api = new GithubClient (
               new GithubHttpClient\CachedHttpClient(array('cache_dir' => '/tmp/github-api-cache'))
             );
-            $factory = new GpbFactory();
 
-            return $app['twig']->render('gpb.index.html.twig',
+            $factory = new GpbFactory();
+            $date = date('Y-M-d h:i:s');
+            $response = new Response($app['twig']->render('gpb.index.html.twig',
               array(
-                'dashboard' => $factory->createDashboard($config, $github_api)
-              )
-            );
+                'dashboard' => $factory->createDashboard($config, $github_api),
+                'date' => $date
+            )));
+            $response->setTtl(900); // TODO
+            return $response;
         })->bind('gpb-homepage');
 
 

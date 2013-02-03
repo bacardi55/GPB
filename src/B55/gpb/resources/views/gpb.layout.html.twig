@@ -15,6 +15,8 @@
     <meta name="viewport" content="width=device-width">
 
     <link rel="stylesheet" href="{{ app.request.basepath }}/assets/css/styles.css">
+    <link rel="stylesheet" href="{{ app.request.basepath }}/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="{{ app.request.basepath }}/assets/css/bootstrap-responsive.css">
 
     <script src="{{ app.request.basepath }}/js/libs/modernizr-2.5.3-respond-1.1.0.min.js"></script>
 </head>
@@ -25,30 +27,27 @@
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container">
-                <a class="brand" href="{{ path('homepage') }}">{{ 'Github PHP Dashboard'|trans }}</a>
-                <div class="nav-collapse">
-                    <ul class="nav">
-                        <li {% if 'homepage' == active %}class="active"{% endif %}><a href="{{ path('homepage') }}">{{ 'Homepage'|trans }}</a></li>
-                    </ul>
-                </div><!--/.nav-collapse -->
+                <a class="brand" href="{{ path('homepage') }}">{{ dashboard.title }}</a>
             </div>
         </div>
     </div>
 
     <div class="container">
         <div id="main" role="main" class="container">
-            {% set alertTypeAvaillable = [ 'info', 'success', 'warning', 'error'] %}
-            {% for alert in alertTypeAvaillable %}
-                {% if app.session.hasFlash(alert) %}
-                        <div class="alert alert-{{ alert }}" >
-                            <button class="close" data-dismiss="alert">×</button>
-                            {{ app.session.flash(alert)|trans }}
-                        </div>
-                {% endif %}
-            {% endfor %}
             {% block content %}
             {% endblock %}
         </div>
+        <footer id="footer">
+            {% block footer %}
+                <hr>
+                <p>
+                    Propulsed by <a href="https://github.com/bacardi55/GPB">Github Php Dashboard (GPB)</a> with the help of <a href="http://silex.sension.org">silex</a> and the <a href="https://github.com/KnpLabs/php-github-api">php-github API</a>.
+                </p>
+                <p>
+                    Page generated at {{ date }} (Cache refreshed every 15 minutes).
+                </p>
+            {% endblock %}
+        </footer>
     </div>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>

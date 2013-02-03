@@ -27,7 +27,8 @@
         "twitter/bootstrap" : "v2.2.2",
         "mheap/silex-assetic" : "dev-master",
         "kriswallsmith/Buzz": "v0.7",
-        "knplabs/github-api": "*"
+        "knplabs/github-api": "*",
+	"twig/extensions": "v1.0.0-alpha"
     },
     "require-dev": {
         "symfony/dom-crawler"   : "2.1.*",

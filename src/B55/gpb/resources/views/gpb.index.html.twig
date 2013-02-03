@@ -2,19 +2,91 @@
 {% set active = 'homepage' %}
 
 {% block content %}
-    <h1>{{ dashboard.title|e }}</h1>
     {% if dashboard.subtitle %}
         <h2>{{ dashboard.subtitle|e }}</h2>
     {% endif %}
 
     <div class="row">
+        {% set cptr = 0 %}
         {% for user in dashboard.users %}
             {% for repo in user.repos %}
-                <div class=span6>
-                    <h3>{{ repo.title|e }}</h3>
-                    <p> {{ repo.description|raw }} </p>
-                    <p> Last updated: {{ repo.lastUpdate }}</p>
-                </div>
+                {% set cptr = cptr + 1 %}
+                <div class="span6 repo">
+                        <h3>{{ repo.title|e }}</h3>
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#summary-{{ repo.title|e }}" data-toggle="tab">Summary</a>
+                            </li>
+                            <li><a href="#commits-{{ repo.title|e }}" data-toggle="tab">Commits</a></li>
+                            <li><a href="#branches-{{ repo.title|e }}" data-toggle="tab">Branches</a></li>
+                            <li><a href="#tags-{{ repo.title|e }}" data-toggle="tab">Tags</a></li>
+                            <li><a href="#issues-{{ repo.title|e }}" data-toggle="tab">Issues</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="summary-{{ repo.title|e }}">
+                                <blockquote>
+                                    <p> {{ repo.description|raw }} </p>
+                                    <small> By {{ user.name }}</small>
+                                </blockquote>
+                                <dl class="dl-horizontal">
+                                    <dt>Contributors</dt>
+                                    <dd>{{ repo.nbContribs }}</dd>
+
+                                    <dt>Last update</dt>
+                                    <dd>{{ repo.lastUpdate }}</dd>
+
+                                    <dt>Number of commit</dt>
+                                    <dd>{{ repo.nbCommits }}</dd>
+
+                                    <dt>Opened issues</dt>
+                                    <dd>{{ repo.nbOpenIssues }}</dd>
+                                </dl>
+                            </div>
+                            <div class="tab-pane" id="commits-{{ repo.title|e }}">
+                                <dl class="dl-horizontal">
+                                    {% for commit in repo.lastsCommits %}
+                                        <dt>{{ commit.author }}</dt>
+                                        <dd><a href="{{ commit.url }}">{{ commit.message|raw|wordwrap }}</a></dd>
+                                    {% endfor %}
+                                </dl>
+                            </div>
+                            <div class="tab-pane" id="branches-{{repo.title}}">
+                                <ul>
+                                    {% for branch in repo.branches %}
+                                        <li><a href="{{ branch.url }}">{{ branch.name }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="tab-pane" id="tags-{{repo.title}}">
+                                <ul>
+                                    {% for tag in repo.tags %}
+                                        <li>
+                                            <a href="{{ tag.url }}">
+                                                {{ tag.name }}
+                                            </a>
+                                            <a href="{{ tag.tarball }}">
+                                                <i class="icon-download"></i>
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="tab-pane" id="issues-{{ repo.title|e }}">
+                                <ul>
+                                    {% for issue in repo.lastIssues %}
+                                        <li><a href="{{ issue.url }}">{{ issue.title }}</a>: {{ issue.body }} (by {{ issue.user }})</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+
+                        <p><a href="{{ repo.url }}">
+                            <button class="btn btn-primary">Project page</button>
+                        </a></p>
+                    </div>
+                {% if cptr is divisibleby(2) %}
+                    <div class="clearfix"></div>
+                {% endif %}
             {% endfor %}
         {% endfor %}
     </div>

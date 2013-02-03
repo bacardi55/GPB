@@ -47,6 +47,13 @@ $app->register(new TwigServiceProvider(), array(
     )
 ));
 
+$app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
+    $twig->addExtension(new Twig_Extensions_Extension_Text($app));
+
+    return $twig;
+}));
+
+
 if (isset($app['assetic.enabled']) && $app['assetic.enabled']) {
     $app->register(new AsseticExtension(), array(
         'assetic.options' => array(
